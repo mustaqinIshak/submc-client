@@ -21,7 +21,8 @@ export default function DetailProduk({params}) {
     const [barcode, setBarcode] = useState("");
     const [idProduk, setIdProduk] = useState("")
     const [harga, setHarga] = useState("");
-    const [kategori, setKategori] = useState({value:{id: 0, name: "silahkan Memilih Kategori"}, label:"silahkan Memilih Kategori"})
+    const [brand, setBrand] = useState({value:{id: 0, name: "Silahkan Memilih Bategori"}, label:"Silahkan Memilih Brand"})
+    const [kategori, setKategori] = useState({value:{id: 0, name: "silahkan Memilih Kategori"}, label:"Silahkan Memilih Kategori"})
     const [subCategori, setSubCategori] = useState({value:{id: 0, name: "silahkan Memilih Sub Kategori"}, label:"silahkan Memilih Sub Kategori"});
     const [warna, setWarna] = useState("");
     const [deskirpsi, setDeskripsi] = useState("");
@@ -54,6 +55,7 @@ export default function DetailProduk({params}) {
                     setName(getProduk.name)
                     setBarcode(getProduk.barcode)
                     setHarga(getProduk.harga)
+                    setBrand({value:{id: getProduk.id_brand, name: getProduk.brandName}, label:getProduk.brandName})
                     setKategori({value:{id: getProduk.id_categori, name: getProduk.categoriName}, label:getProduk.categoriName})
                     setSubCategori({value:{id: getProduk.id_sub_categori, name: getProduk.subKategoriName}, label:getProduk.subKategoriName})
                     setDeskripsi(getProduk.deskripsi)

@@ -52,7 +52,7 @@ export default function FormDetailProduk({
                     <div className={`${gambar.length ? "p-4 bg-gray-400 rounded-lg my-6" : "hidden"}`}>
                         <ol className="flex flex-col justify-center md:flex-row">
                             {[...gambar].map((f, i) => (
-                                <li  key={i} className="block p-1 w-1/ h-full sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8">
+                                <li  key={i} className="block p-1 h-full w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8">
                                     <img onClick={() => handlePicSelected(i)} alt="upload preview" src={f} className="img-preview w-full h-full sticky object-cover rounded-md bg-fixed" />
                                 </li>
                             ))}
