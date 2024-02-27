@@ -1,0 +1,23 @@
+{
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/login/page": "/login",
+  "/dashboard/page": "/dashboard",
+  "/dashboard/bannerHome/page": "/dashboard/bannerHome",
+  "/dashboard/kategori/page": "/dashboard/kategori",
+  "/dashboard/profileCompany/page": "/dashboard/profileCompany",
+  "/dashboard/produk/page": "/dashboard/produk",
+  "/dashboard/roleUser/page": "/dashboard/roleUser",
+  "/dashboard/subKategori/page": "/dashboard/subKategori",
+  "/dashboard/user/page": "/dashboard/user",
+  "/dashboard/kategori/create/page": "/dashboard/kategori/create",
+  "/dashboard/produk/create/page": "/dashboard/produk/create",
+  "/dashboard/roleUser/create/page": "/dashboard/roleUser/create",
+  "/dashboard/subKategori/create/page": "/dashboard/subKategori/create",
+  "/dashboard/user/create/page": "/dashboard/user/create",
+  "/dashboard/kategori/edit/[id]/page": "/dashboard/kategori/edit/[id]",
+  "/dashboard/produk/detail/[id]/page": "/dashboard/produk/detail/[id]",
+  "/dashboard/roleUser/edit/[id]/page": "/dashboard/roleUser/edit/[id]",
+  "/dashboard/subKategori/edit/[id]/page": "/dashboard/subKategori/edit/[id]",
+  "/dashboard/user/edit/[id]/page": "/dashboard/user/edit/[id]"
+}
