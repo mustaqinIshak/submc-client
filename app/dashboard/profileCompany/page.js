@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import {get, editProfileCompany} from "@/app/api/ProfileCompany";
+import {get, editProfileCompany} from "../../api/profileCompany";
 import aksesMenu from "@/app/api/aksesMenu"
 import { FieldText } from "@/components/fieldText";
 import {ButtonPrimary} from "@/components/buttonPrimary"
