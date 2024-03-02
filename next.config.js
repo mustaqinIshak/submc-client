@@ -14,7 +14,7 @@ const nextConfig = {
 //   },
   env: {
     NEXT_LOCAL_BASE_API_URL:"http://127.0.0.1:8000/api",
-    NEXT_LIVE_BASE_API_URL:"http://api.amakbars.com/api",
+    NEXT_LIVE_BASE_API_URL:"https://api.amakbars.com/api",
   }
 }
 
