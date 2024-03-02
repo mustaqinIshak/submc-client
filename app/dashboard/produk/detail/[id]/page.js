@@ -21,7 +21,7 @@ export default function DetailProduk({params}) {
     const [barcode, setBarcode] = useState("");
     const [idProduk, setIdProduk] = useState("")
     const [harga, setHarga] = useState("");
-    const [brand, setBrand] = useState({value:{id: 0, name: "Silahkan Memilih Bategori"}, label:"Silahkan Memilih Brand"})
+    const [brand, setBrand] = useState({value:{id: 0, name: "Silahkan Memilih Brand"}, label:"Silahkan Memilih Brand"})
     const [kategori, setKategori] = useState({value:{id: 0, name: "silahkan Memilih Kategori"}, label:"Silahkan Memilih Kategori"})
     const [subCategori, setSubCategori] = useState({value:{id: 0, name: "silahkan Memilih Sub Kategori"}, label:"silahkan Memilih Sub Kategori"});
     const [warna, setWarna] = useState("");
@@ -126,6 +126,7 @@ export default function DetailProduk({params}) {
                 !changeForm ? 
                 <FormDetailProduk 
                     name={name}
+                    brand={brand.label}
                     barcode={barcode}
                     harga={harga}
                     categoriName={kategori.label}

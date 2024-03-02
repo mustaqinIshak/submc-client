@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import {ButtonPrimary} from "@/components/buttonPrimary"
 export default function FormDetailProduk({
     name="-",
+    brand="-",
     barcode="-",
     harga="0",
     categoriName="-",
@@ -66,6 +67,7 @@ export default function FormDetailProduk({
             {/* form detail */}
             <div className='flex flex-col max-w-md flex-wrap'>
                 <LabelData title={"Nama"} value={name} />
+                <LabelData title={"Brand"} value={brand} />
                 <LabelData title={"Barcode"} value={barcode} />
                 <LabelData title={"Harga"} value={harga} />
                 <LabelData title={"Kategori"} value={categoriName} />

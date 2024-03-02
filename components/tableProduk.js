@@ -167,7 +167,7 @@ export default function TableProduk({aksesEdit = 0, aksesDelete = 0}) {
         return(
             <>
                 {
-                    status === 1 ?
+                    status == 1 ?
                     <svg className="w-3 h-3 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5.917 5.724 10.5 15 1.5"/>
                     </svg>
@@ -280,11 +280,11 @@ export default function TableProduk({aksesEdit = 0, aksesDelete = 0}) {
                                         <td className="px-6 py-4">
                                             <div className="flex gap-3">
                                                 {
-                                                    aksesEdit === 1 &&
+                                                    aksesEdit == 1 &&
                                                     <FaRegPenToSquare className="text-yellow-500 text-xl" onClick={() => handleDetail(item.id)} />
                                                 }
                                                 {
-                                                    aksesDelete === 1 &&
+                                                    aksesDelete == 1 &&
                                                     <FaRegTrashCan className="text-red-500 text-xl" onClick={() => handleDelete(item.id, item.name)} />
                                                 }
                                             </div>

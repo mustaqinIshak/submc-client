@@ -49,7 +49,7 @@ export function Select2SubKategori ({idKategori ,value, setValue, isError, keter
     
     useEffect( () => {
       loadOption()
-    },[])
+    },[idKategori])
 
     const handleOption = (value) => {
         setValue(value)

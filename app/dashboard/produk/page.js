@@ -22,7 +22,7 @@ export default function Produk() {
             const menu = JSON.parse(localStorage.getItem('menu'));
             const findIdMenu = menu.find(item => item.name === "Produk");
             const find = await aksesMenu.getSelectedAksesMenu(findIdMenu.id);
-            console.log(find)
+            console.log('ini apa',find)
             if(find) {
                 setAksesMenuData({...find});
             }

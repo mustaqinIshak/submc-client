@@ -45,7 +45,7 @@ export default function Login() {
             }
             setIsLoading(false);
         } catch (error) {
-            console.log(error.response.data)
+            // console.log(error.response.data)
             setIsError("Username atau password anda salah")
             setIsLoading(false);
         }

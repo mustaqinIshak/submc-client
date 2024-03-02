@@ -1,9 +1,39 @@
 import instance from "./config";
-async function getIndex() {
+async function getIndex(payload) {
     try{
         const result = await instance({
             method: 'post',
             url:'/getBrand',
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Authorization" : `Bearer ${localStorage.getItem('token')}`
+            },
+            data: {
+                limit: payload.limit,
+                search: payload.search
+            }
+        })
+        if(result.data.status) {
+            return result.data.data
+        } else {
+            throw result.data
+        }
+    }
+    catch {
+     
+        const message = []
+        if(error.message) {
+            message.push(message)
+        }
+        throw message
+    }
+}
+
+async function getAll() {
+    try{
+        const result = await instance({
+            method: 'post',
+            url:'/getAllBrand',
             headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Authorization" : `Bearer ${localStorage.getItem('token')}`
@@ -22,6 +52,31 @@ async function getIndex() {
             message.push(message)
         }
         throw message
+    }
+}
+
+
+async function page(payload) {
+    try{
+        const result = await instance({
+            method: 'post',
+            url:`/getBrand?page=${payload.number}`,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Authorization" : `Bearer ${localStorage.getItem('token')}`
+            },
+            data: {
+                limit: payload.limit,
+                search: payload.search
+            }
+        })
+        if(result.data.status) {
+            return result.data.data
+        }
+    }
+    catch(error) {
+  
+        throw error
     }
 }
 
@@ -60,40 +115,6 @@ async function getSelected(payload) {
     }
 }
 
-async function page(payload) {
-    try{
-        const result = await instance({
-            method: 'post',
-            url:`/getAllBrand?page=${payload.number}`,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Authorization" : `Bearer ${localStorage.getItem('token')}`
-            },
-            data: {
-                limit: payload.limit,
-                search: payload.search
-            }
-        })
-        if(result.data.status) {
-            return result.data.data
-        } else {
-            throw result.data
-        }
-    }
-    catch (error){
-      
-        const message = []
-        if(error.response.data.id) {
-            error.response.data.id.map((item) => {
-                message.push(item)
-            })
-        }
-        if(error.message) {
-            message.push(message)
-        }
-        throw message
-    }
-}
 
 async function create(payload) {
     try {
@@ -157,6 +178,7 @@ async function edit(payload) {
 
 export {
     getIndex,
+    getAll,
     getSelected,
     page,
     create,

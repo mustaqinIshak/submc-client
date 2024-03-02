@@ -14,6 +14,7 @@ import { FieldTextArea } from "@/components/fieldTextArea"
 import {FieldRupiah} from "@/components/fieldRupiah"
 import {Select2Kategori} from "@/components/select2Kategori"
 import {Select2SubKategori} from "@/components/select2SubKategori"
+import { Select2Brand } from "./select2Brand"
 import MultiplePicForm from "@/components/multiplePicForm";
 import {ButtonPrimary} from "@/components/buttonPrimary"
 import TitlePage from "@/components/titlePage";
@@ -33,6 +34,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
     const [harga, setHarga] = useState("");
     const [kategori, setKategori] = useState({value:{id: 0, name: "silahkan Memilih Kategori"}, label:"silahkan Memilih Kategori"})
     const [subCategori, setSubCategori] = useState({value:{id: 0, name: "silahkan Memilih Sub Kategori"}, label:"silahkan Memilih Sub Kategori"});
+    const [brand, setBrand] = useState({value:{id: 0, name: "silahkan Memilih Brand"}, label:"silahkan Memilih Brand"});
     const [warna, setWarna] = useState("");
     const [deskirpsi, setDeskripsi] = useState("");
     const [type, setType] = useState("");
@@ -53,6 +55,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
     const [validHarga, setValidHarga] = useState(null)
     const [validKategori, setValidKategori] = useState(null)
     const [validSubKategori, setValidSubKategori] = useState(null)
+    const [validBrand, setValidBrand] = useState(null)
     const [validSize, setValidSize] = useState(null)
     const [validGambar, setValidGambar] = useState(null)
     const [validSale, setValidSale] = useState(null)
@@ -60,6 +63,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
     const [isErrorHarga, setIsErrorHarga] = useState(false)
     const [isErrorKategori, setIsErrorKategori] = useState(false)
     const [isErrorSubKategori, setIsErrorSubKategori] = useState(false)
+    const [isErrorBrand, setIsErrorBrand] = useState(false)
     const [isErrorSize, setIsErrorSize] = useState(false)
     const [isErrorSale, setIsErrorSale] = useState(false)
     const [isErrorGambar, setIsErrorGambar] = useState(false)
@@ -77,6 +81,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
             setHarga(handleChangeRupiah(getProduk.harga))
             setKategori({value:{id: getProduk.id_categori, name: getProduk.categoriName}, label:getProduk.categoriName})
             setSubCategori({value:{id: getProduk.id_sub_categori, name: getProduk.subKategoriName}, label:getProduk.subKategoriName})
+            setBrand({value:{id: getProduk.id_brand, name: getProduk.brabdName}, label:getProduk.brandName})
             setDeskripsi(getProduk.deskripsi)
             setWarna(getProduk.color)
             setType(getProduk.type)
@@ -196,6 +201,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
             setIsErrorHarga(false)
             setIsErrorKategori(false)
             setIsErrorSubKategori(false)
+            setIsErrorBrand(false)
             setIsErrorSize(false)
             setIsErrorGambar(false)
             if (!validator.isLength(name, { min: 3 })) {
@@ -210,7 +216,11 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
                 setValidSubKategori("Anda Harus Memilih Sub Kategori")
                 setIsErrorSubKategori(true)
                 setLoadingButton(false)
-            } else if(!sizes.length) {
+            } else if(brand.value.id === 0) {
+                setValidBrand("Anda Harus Memilih Brand")
+                setIsErrorBrand(true)
+                setLoadingButton(false)
+            }else if(!sizes.length) {
                 setValidSize("Anda harus menambahkan size terlebih dahulu")
                 setIsErrorSize(true)
                 setLoadingButton(false)
@@ -231,6 +241,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
                 formData.append("harga", normalizeBayar(harga))
                 formData.append("idCategori", kategori.value.id)
                 formData.append("idSubCategori", subCategori.value.id)
+                formData.append("idBrand", brand.value.id)
                 formData.append("deskripsi", deskirpsi)
                 formData.append("color", warna)
                 formData.append("type", type)
@@ -352,6 +363,12 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
                                         keterangan={validSubKategori}
                                         /> 
                                 }
+                                <Select2Brand 
+                                     value={brand} 
+                                     setValue={setBrand} 
+                                     isError={isErrorBrand}
+                                     keterangan={validBrand}
+                                />
                                 <FieldText 
                                     value={warna} 
                                     setValue={setWarna} 

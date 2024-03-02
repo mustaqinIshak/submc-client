@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Select from "react-select"
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import {getIndex} from "../app/api/brand"
+import {getAll} from "../app/api/brand"
 
 
 export function Select2Brand ({value, setValue, isError, keterangan}) {
@@ -14,7 +14,7 @@ export function Select2Brand ({value, setValue, isError, keterangan}) {
     const loadOption = async () => {
         try{
             const arr = []
-            const response = await getIndex()
+            const response = await getAll()
             console.log(response)
             if(response) {
                 response.map((item) => {
@@ -40,6 +40,7 @@ export function Select2Brand ({value, setValue, isError, keterangan}) {
             }
         }
         catch(err) {
+            console.log(err)
             MySwal.fire({
                 icon: "error",
                 title: err.message,
