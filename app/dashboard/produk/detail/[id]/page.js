@@ -31,7 +31,7 @@ export default function DetailProduk({params}) {
     const [linkShoope, setLinkShoope] = useState("");
     const [gambar, setGambar] = useState([])
     const [images, setImages] = useState([]);
-    const [sale, setSale] = useState(0)
+    const [sale, setSale] = useState(false)
     const [startSale, setStartSale] = useState(null)
     const [endSale, setEndSale] = useState(null)
     const [status, setStatus] = useState(false);
@@ -63,10 +63,14 @@ export default function DetailProduk({params}) {
                     setType(getProduk.type)
                     setJenisBahan(getProduk.jenis_bahan)
                     setLinkShoope(getProduk.link_shoope)
-                    setSale(getProduk.sale)
+                    if(getProduk.sale == 1) {
+                        setSale(true)
+                    } else {
+                        setSale(false)
+                    }
                     setStartSale(getProduk.start_sale)
                     setEndSale(getProduk.end_sale)
-                    if(getProduk.status === 1) {
+                    if(getProduk.status == 1) {
                         setStatus(true)
                     } else {
                         setStatus(false)

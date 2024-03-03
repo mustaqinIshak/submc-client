@@ -87,12 +87,17 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
             setType(getProduk.type)
             setJenisBahan(getProduk.jenis_bahan)
             setLinkShoope(getProduk.link_shoope)
-            setSale(getProduk.sale)
+            // setSale(getProduk.sale)
+            if(getProduk.sale == 1) {
+                setSale(true)
+            } else {
+                setSale(false)
+            }
             setStartSale((getProduk.start_sale === "0000-00-00") ||  (getProduk.start_sale !== "") ? "" : dateFormat(getProduk.start_sale, "yyyy-mm-dd") )
             // setStartSale(getProduk.start_sale)
             setEndSale((getProduk["end_sale"] === "0000-00-00") || (getProduk["end_sale"] === "") ? "" : dateFormat(getProduk["end_sale"], "yyyy-mm-dd"))
             // setEndSale(getProduk.end_sale)
-            if(getProduk.status === 1) {
+            if(getProduk.status == 1) {
                 setStatus(true)
             } else {
                 setStatus(false)
