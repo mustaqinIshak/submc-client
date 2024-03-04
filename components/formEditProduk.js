@@ -12,6 +12,7 @@ import SizeFormEdit from "@/components/sizeFormEdit"
 import FieldTanggal  from "@/components/fieldTanggal"
 import { FieldTextArea } from "@/components/fieldTextArea"
 import {FieldRupiah} from "@/components/fieldRupiah"
+import {FieldNumber} from "../components/fieldNumber"
 import {Select2Kategori} from "@/components/select2Kategori"
 import {Select2SubKategori} from "@/components/select2SubKategori"
 import { Select2Brand } from "./select2Brand"
@@ -48,6 +49,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
     const [status, setStatus] = useState(false);
     const [loadingPage, setLoadingPage] = useState(false)
     const [sizes, setSizes] = useState([]);
+    const [jumlahSale, setJumlahSale] = useState(0)
 
     const [fileLimit, setFileLimit] = useState(false);
     const [loadingButton, setLoadingButton] = useState(false);
@@ -59,6 +61,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
     const [validSize, setValidSize] = useState(null)
     const [validGambar, setValidGambar] = useState(null)
     const [validSale, setValidSale] = useState(null)
+    const [validJumlahSale, setValidJumlahSale] = useState(null)
     const [isErrorName, setIsErrorName] = useState(false)
     const [isErrorHarga, setIsErrorHarga] = useState(false)
     const [isErrorKategori, setIsErrorKategori] = useState(false)
@@ -67,6 +70,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
     const [isErrorSize, setIsErrorSize] = useState(false)
     const [isErrorSale, setIsErrorSale] = useState(false)
     const [isErrorGambar, setIsErrorGambar] = useState(false)
+    const [isErrorJumlahSale, setIsErrorJumlahSale] = useState(false)
 
     const [reloadGambar, setReloadGambar] = useState(false)
     const [reloadSize, setReloadSize] = useState(false)
@@ -76,6 +80,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
 
     useEffect(() => {
         if(getProduk) {
+            let stringToNumberJumlahSale = parseInt(getProduk["jumlah_sale"]) 
             setName(getProduk.name)
             setBarcode(getProduk.barcode)
             setHarga(handleChangeRupiah(getProduk.harga))
@@ -93,15 +98,17 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
             } else {
                 setSale(false)
             }
-            setStartSale((getProduk.start_sale === "0000-00-00") ||  (getProduk.start_sale !== "") ? "" : dateFormat(getProduk.start_sale, "yyyy-mm-dd") )
+            setStartSale((getProduk["start_sale"] === "0000-00-00") ||  (getProduk["start_sale"] === "") ? "" : dateFormat(getProduk["start_sale"], "yyyy-mm-dd") )
             // setStartSale(getProduk.start_sale)
             setEndSale((getProduk["end_sale"] === "0000-00-00") || (getProduk["end_sale"] === "") ? "" : dateFormat(getProduk["end_sale"], "yyyy-mm-dd"))
-            // setEndSale(getProduk.end_sale)
+            
+            setJumlahSale(stringToNumberJumlahSale)
             if(getProduk.status == 1) {
                 setStatus(true)
             } else {
                 setStatus(false)
             }
+            
             const previewImage = [...images]
             if(getProduk.gambar.length) {
                 setGambar(getProduk.gambar)
@@ -238,6 +245,10 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
                 setValidSale("Tanggal Sale Harus Di Isi Terlebih Dahulu")
                 setLoadingButton(false)
                 setIsErrorSale(true)
+            } else if(sale && jumlahSale == 0) {
+                setValidJumlahSale("Jumlah Sale Harus Di Isi Terlebih Dahulu")
+                setLoadingButton(false)
+                setIsErrorJumlahSale(true)
             }   
             else {
                 const formData = new FormData();
@@ -264,11 +275,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
                 } else {
                     formData.append("endSale", endSale)
                 }
-
-                // gambar.forEach((image_file) => {
-                //     formData.append('gambar[]', image_file);
-                //     // formData.append('file[]', image_file);
-                // })
+                formData.append("jumlahSale", jumlahSale)
 
                 const editProdukResult = await editProduk(formData)
                 if(editProdukResult.status) {
@@ -434,6 +441,14 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
                                             setValue={setEndSale}
                                             name={"Tanggal Berakhir Sale"}
                                             isRequire={true}
+                                        />
+                                         <FieldNumber 
+                                            name="Jumlah Sale"
+                                            value={jumlahSale} 
+                                            setValue={setJumlahSale} 
+                                            isRequire={true}
+                                            isError={isErrorJumlahSale}
+                                            keterangan={validJumlahSale} 
                                         />
                                         {
                                             isErrorSale &&

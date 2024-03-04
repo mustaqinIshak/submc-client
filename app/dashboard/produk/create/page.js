@@ -7,6 +7,7 @@ import { FieldText } from "@/components/fieldText"
 import Togle from "@/components/togle"
 import SizeForm  from "@/components/sizeForm"
 import FieldTanggal  from "@/components/fieldTanggal"
+import { FieldNumber } from "../../../../components/fieldNumber"
 import { FieldTextArea } from "@/components/fieldTextArea"
 import {FieldRupiah} from "@/components/fieldRupiah"
 import {Select2Kategori} from "@/components/select2Kategori"
@@ -49,6 +50,7 @@ export default function CreateProduk() {
     const [sale, setSale] = useState(false)
     const [startSale, setStartSale] = useState("")
     const [endSale, setEndSale] = useState("")
+    const [jumlahSale, setJumlahSale] = useState(0)
 
 
     const [fileLimit, setFileLimit] = useState(false);
@@ -62,6 +64,7 @@ export default function CreateProduk() {
     const [validSize, setValidSize] = useState(null)
     const [validGambar, setValidGambar] = useState(null)
     const [validSale, setValidSale] = useState(null)
+    const [validJumlahSale, setValidJumlahSale] = useState(null)
     const [isErrorName, setIsErrorName] = useState(false)
     const [isErrorHarga, setIsErrorHarga] = useState(false)
     const [isErrorKategori, setIsErrorKategori] = useState(false)
@@ -70,6 +73,7 @@ export default function CreateProduk() {
     const [isErrorSize, setIsErrorSize] = useState(false)
     const [isErrorSale, setIsErrorSale] = useState(false)
     const [isErrorGambar, setIsErrorGambar] = useState(false)
+    const [isErrorJumlahSale, setIsErrorJumlahSale] = useState(false)
     const getAksesMenu = async () => {
         try {
             setLoadingPage(true)
@@ -181,7 +185,12 @@ export default function CreateProduk() {
                 setValidSale("Tanggal Sale Harus Di Isi Terlebih Dahulu")
                 setLoadingButton(false)
                 setIsErrorSale(true)
-            }   
+            }
+            else if(sale && jumlahSale == 0) {
+                setValidJumlahSale("Jumlah Sale Harus Di Isi Terlebih Dahulu")
+                setLoadingButton(false)
+                setIsErrorJumlahSale(true)
+            }     
             else {
                 const formData = new FormData();
                 formData.append('name', name);
@@ -199,7 +208,7 @@ export default function CreateProduk() {
                     formData.append("startSale", dateFormat(startSale, "isoDate"))
                     formData.append("endSale", dateFormat(endSale, "isoDate"))
                 } else {
-                    formData.append("startsale", "")
+                    formData.append("startSale", "")
                     formData.append("endSale", "")
                 }
 
@@ -211,6 +220,7 @@ export default function CreateProduk() {
                     formData.append('gambar[]', image_file);
                     // formData.append('file[]', image_file);
                 })
+                formData.append("jumlahSale", jumlahSale)
 
                 const createProduk = await create(formData)
                 if(createProduk.status) {
@@ -369,6 +379,15 @@ export default function CreateProduk() {
                                             setValue={setEndSale}
                                             name={"Tanggal Berakhir Sale"}
                                             isRequire={true}
+                                            
+                                        />
+                                        <FieldNumber 
+                                            name="Jumlah Sale"
+                                            value={jumlahSale} 
+                                            setValue={setJumlahSale} 
+                                            isRequire={true}
+                                            isError={isErrorJumlahSale}
+                                            keterangan={validJumlahSale} 
                                         />
                                         {
                                             isErrorSale &&

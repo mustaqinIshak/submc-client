@@ -14,7 +14,7 @@ export const FieldNumber = ({
         const inputValue = e.target.value;
         // Allow digits and a single decimal point
         const newValue = inputValue.replace(/[^0-9.]/g, "");
-        setValue(newValue);
+        return setValue(newValue);
       };
     return(
         <div className="mb-6">

@@ -35,6 +35,7 @@ export default function DetailProduk({params}) {
     const [startSale, setStartSale] = useState(null)
     const [endSale, setEndSale] = useState(null)
     const [status, setStatus] = useState(false);
+    const [jumlahSale, setJumlahSale] = useState(0)
     const [loadingPage, setLoadingPage] = useState(false)
     const [objProdukEdit, setObjProdukEdit] = useState({})
     const [dataNotFound, setDataNotFound] = useState("")
@@ -50,6 +51,7 @@ export default function DetailProduk({params}) {
                 setAksesMenuData({...find});
                 const getProduk = await getSelectedProduk(params.id)
                 if(getProduk) {
+                    let stringToNumberJumlahSale = parseInt(getProduk["jumlah_sale"]) 
                     setObjProdukEdit(getProduk)
                     setIdProduk(getProduk.id)
                     setName(getProduk.name)
@@ -75,6 +77,7 @@ export default function DetailProduk({params}) {
                     } else {
                         setStatus(false)
                     }
+                    setJumlahSale(stringToNumberJumlahSale)
                     const previewImage = [...images]
                     if(getProduk.gambar.length) {
                         setGambar(getProduk.gambar)
@@ -145,6 +148,7 @@ export default function DetailProduk({params}) {
                     end_sale={endSale}
                     status={status}
                     gambar={images}
+                    jumlahSale={jumlahSale}
                     handleChangeForm = {handleChangeForm}
                 />
                 :

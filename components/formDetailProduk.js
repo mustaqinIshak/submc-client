@@ -5,6 +5,7 @@ import SpinnerLoading from "@/components/spinner";
 import LabelData from "@/components/labelData"
 import { useEffect, useState } from 'react';
 import {ButtonPrimary} from "@/components/buttonPrimary"
+import handleChangeRupiah from '@/helpers/handleChangRupiah';
 export default function FormDetailProduk({
     name="-",
     brand="-",
@@ -22,6 +23,7 @@ export default function FormDetailProduk({
     end_sale,
     status,
     gambar = [],
+    jumlahSale,
     handleChangeForm,
 }) {
     const [selectedPic, setSelectedPic] = useState({})
@@ -69,7 +71,7 @@ export default function FormDetailProduk({
                 <LabelData title={"Nama"} value={name} />
                 <LabelData title={"Brand"} value={brand} />
                 <LabelData title={"Barcode"} value={barcode} />
-                <LabelData title={"Harga"} value={harga} />
+                <LabelData title={"Harga"} value={handleChangeRupiah(harga)} />
                 <LabelData title={"Kategori"} value={categoriName} />
                 <LabelData title={"Sub Kategori"} value={subKategoriName} />
                 <LabelData title={"Deskripsi"} value={deskripsi} />
@@ -77,9 +79,10 @@ export default function FormDetailProduk({
                 <LabelData title={"Tipe"} value={type} />
                 <LabelData title={"Jenis Bahan"} value={jenis_bahan} />
                 <LabelData title={"Link Shoope"} value={link_shoope} />
-                <LabelData title={"Sale"} value={sale} />
+                <LabelData title={"Sale"} value={sale ? "Aktif" : "Tidak"} />
                 <LabelData title={"Start Sale"} value={start_sale} />
-                {/* <LabelData title={"End Sale"} value={end_sale} /> */}
+                <LabelData title={"End Sale"} value={end_sale} />
+                <LabelData title={"Total sale"} value={jumlahSale} />
                 <LabelData title={"Status Barang"} value={status ? "Ya" : "Tidak"} />
                 <div>
                     <ButtonPrimary type={"button"} name='Edit' action={handleChangeForm}  />
