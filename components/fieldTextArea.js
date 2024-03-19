@@ -1,4 +1,5 @@
-
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 export const FieldTextArea = ({
     name = "field text Area", 
     id = "field text Area", 
@@ -9,12 +10,29 @@ export const FieldTextArea = ({
     isError,
     keterangan 
 }) => {
+    const modules = {
+        toolbar: [
+            [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+            [{size: []}],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            [{'list': 'ordered'}, {'list': 'bullet'}, 
+            {'indent': '-1'}, {'indent': '+1'}],
+            ['link', 'image', 'video'],
+            ['clean']
+        ],
+    };
     return(
         <div className="mb-6">
             <label htmlFor={id} className=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 {name}
             </label>
-            <textarea
+            <ReactQuill
+                value={value}
+                onChange={setValue}
+                modules={modules}
+                theme="snow" // or 'bubble'
+            />
+            {/* <textarea
                 rows="4"
                 id={id}
                 className="
@@ -38,7 +56,7 @@ export const FieldTextArea = ({
                 value={value} 
                 onChange={(e) => setValue(e.target.value) }
                 required={isRequire ? true : false}
-            />
+            /> */}
             {
                 isError &&
                 <p className="mt-2 text-sm text-red-500">{keterangan}</p>
