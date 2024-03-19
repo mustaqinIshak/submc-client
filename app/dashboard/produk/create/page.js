@@ -332,7 +332,6 @@ export default function CreateProduk() {
                                     setValue={setDeskripsi} 
                                     name="Deskripsi"
                                     id="deskripsi"
-                                    isRequire={true} 
                                     placeholder="jika tidak ada masukkan '-'" 
                                     
                                 />
