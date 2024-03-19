@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
-import { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 export const FieldTextArea = ({
     name = "field text Area", 
