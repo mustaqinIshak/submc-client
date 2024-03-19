@@ -33,16 +33,7 @@ async function editProfileCompany(payload) {
                 "Access-Control-Allow-Origin": "*",
                 "Authorization" : `Bearer ${localStorage.getItem('token')}`
             },
-            data: {
-                id: payload.id,
-                name: payload.name,
-                alamat: payload.alamat,
-                nomorHp: payload.nomorHp,
-                instagram: payload.instagram,
-                twitter: payload.instagram,
-                facebook: payload.facebook,
-                youtube: payload.youtube,
-            }
+            data: payload
         })
   
         return result.data
