@@ -57,7 +57,7 @@ export default function Kategori() {
                             <ButtonPrimary name="Sub Kategori" action={handleNavigateSubKategori}  />
                         </div>
                     }
-                    <TableKategori aksesDelete={aksesMenuData.act_delete} aksesEdit={aksesMenuData.act_update}  />
+                    <TableKategori aksesEdit={aksesMenuData.act_update}  />
                 </div>
                 :
                 <div className="flex items-center justify-center">

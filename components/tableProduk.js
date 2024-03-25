@@ -251,7 +251,7 @@ export default function TableProduk({aksesEdit = 0}) {
                                             <div className="flex gap-3">
                                                 {
                                                     aksesEdit == 1 &&
-                                                    <div className="flex flex-row text-center justify-center gap-3" onClick={() => handleDetail(item.id)} >
+                                                    <div className="flex flex-row text-center justify-center gap-3 cursor-pointer" onClick={() => handleDetail(item.id)} >
                                                         <FaRegPenToSquare className="text-yellow-500 text-xl" />
                                                         <span className="text-yellow-500 text-md">Edit</span>
                                                     </div>

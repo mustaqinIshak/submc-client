@@ -23,35 +23,35 @@ export default function TableSubKategori({aksesEdit = 0, aksesDelete = 0}) {
     const [lastPage, setLastPage] = useState(1)
     const [reload, setReload] = useState(false)
 
-    const handleDelete = (id, name) => {
-        MySwal.fire({
-            title: `Apakah anda yakin ingin menghapus data ini dengan nama "${id, name}" ?`,
-            text: "Anda tidak bisa mengembalikan data ini!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, Hapus!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-                deleteItem(id)
-                .then(() => {
-                  setReload(!reload)
-                  MySwal.fire(
-                      'Deleted!',
-                      'Data berhasil di hapus',
-                      'success'
-                  )
-              }, err => {
-                  setReload(!reload)
-                  MySwal.fire({
-                      icon: "error",
-                      title: "Gagal Menghapus kategori",
-                  });
-              })
-            }
-        }) 
-    }
+    // const handleDelete = (id, name) => {
+    //     MySwal.fire({
+    //         title: `Apakah anda yakin ingin menghapus data ini dengan nama "${id, name}" ?`,
+    //         text: "Anda tidak bisa mengembalikan data ini!",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Ya, Hapus!'
+    //       }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             deleteItem(id)
+    //             .then(() => {
+    //               setReload(!reload)
+    //               MySwal.fire(
+    //                   'Deleted!',
+    //                   'Data berhasil di hapus',
+    //                   'success'
+    //               )
+    //           }, err => {
+    //               setReload(!reload)
+    //               MySwal.fire({
+    //                   icon: "error",
+    //                   title: "Gagal Menghapus kategori",
+    //               });
+    //           })
+    //         }
+    //     }) 
+    // }
 
     const handleEdit = (id) => {
         router.replace(`/dashboard/subKategori/edit/${id}`)
@@ -233,11 +233,7 @@ export default function TableSubKategori({aksesEdit = 0, aksesDelete = 0}) {
                                                 <div className="flex gap-3">
                                                     {
                                                         aksesEdit === 1 &&
-                                                        <FaRegPenToSquare className="text-yellow-500 text-xl" onClick={() => handleEdit(item.id)} />
-                                                    }
-                                                    {
-                                                        aksesDelete === 1 &&
-                                                        <FaRegTrashCan className="text-red-500 text-xl" onClick={() => handleDelete(item.id, item.name)} />
+                                                        <FaRegPenToSquare className="text-yellow-500 text-xl cursor-pointer" onClick={() => handleEdit(item.id)} />
                                                     }
                                                 </div>
                                             </td>

@@ -10,7 +10,7 @@ import SpinnerLoading from "./spinner";
 import Pagination from "@/components/pagination"
 import { useRouter } from "next/navigation"
 
-export default function TableKategori({aksesEdit = 0, aksesDelete = 0}) {
+export default function TableKategori({aksesEdit = 0}) {
     const router = useRouter();
     const MySwal = withReactContent(Swal)
     const [data, setData] = useState([]);
@@ -23,36 +23,7 @@ export default function TableKategori({aksesEdit = 0, aksesDelete = 0}) {
     const [lastPage, setLastPage] = useState(1)
     const [reload, setReload] = useState(false)
 
-    const handleDelete = (id, name) => {
-        MySwal.fire({
-            title: `Apakah anda yakin ingin menghapus data ini dengan nama "${id, name}" ?`,
-            text: "Anda tidak bisa mengembalikan data ini!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, Hapus!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-                deleteItem(id)
-                .then(() => {
-                  setReload(!reload)
-                  MySwal.fire(
-                      'Deleted!',
-                      'Data berhasil di hapus',
-                      'success'
-                  )
-              }, err => {
-                  setReload(!reload)
-                  MySwal.fire({
-                      icon: "error",
-                      title: "Gagal Menghapus kategori",
-                  });
-              })
-            }
-        }) 
-    }
-
+    
     const handleEdit = (id) => {
         router.replace(`/dashboard/kategori/edit/${id}`)
     }
@@ -232,12 +203,9 @@ export default function TableKategori({aksesEdit = 0, aksesDelete = 0}) {
                                                 <div className="flex gap-3">
                                                     {
                                                         aksesEdit === 1 &&
-                                                        <FaRegPenToSquare className="text-yellow-500 text-xl" onClick={() => handleEdit(item.id)} />
+                                                        <FaRegPenToSquare className="text-yellow-500 text-xl cursor-pointer" onClick={() => handleEdit(item.id)} />
                                                     }
-                                                    {
-                                                        aksesDelete === 1 &&
-                                                        <FaRegTrashCan className="text-red-500 text-xl" onClick={() => handleDelete(item.id, item.name)} />
-                                                    }
+                                                    
                                                 </div>
                                             </td>
                                         </tr>
