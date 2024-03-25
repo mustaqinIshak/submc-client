@@ -59,7 +59,7 @@ export default function Produk() {
                             <ButtonPrimary name="Tambah Produk" action={createNavigate}  />
                         </div>
                     }
-                    <TableProduk aksesDelete={aksesMenuData.act_delete} aksesEdit={aksesMenuData.act_update} />
+                    <TableProduk aksesEdit={aksesMenuData.act_update} />
                 </div>
                 :
                 <div className="flex items-center justify-center">
