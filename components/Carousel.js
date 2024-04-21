@@ -13,7 +13,7 @@ export default function DefaultCarousel({item, loading}) {
             loading ? 
             <SpinnerLoading />
             :
-              <Carousel slide={false}  >
+              <Carousel className='w-full h-full' slide={false}  >
                 {
                   item.map((item, index) => 
                     <img
