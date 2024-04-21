@@ -156,7 +156,7 @@ export default function BannerHome() {
                 :
                 aksesMenuData && aksesMenuData.act_read === 1 ? 
                 <div className="flex flex-col gap-4">
-                    <DefaultCarousel item={bannerItem} />
+                    {/* <DefaultCarousel item={bannerItem} /> */}
                     {
                         aksesMenuData && aksesMenuData.act_create === 1 &&
                         <div className="w-full flex flex-col justify-start mb-6 ">

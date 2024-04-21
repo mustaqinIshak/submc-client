@@ -4,16 +4,17 @@ import { Carousel } from 'flowbite-react';
 import SpinnerLoading from "@/components/spinner";
 
 export default function DefaultCarousel({item, loading}) {
+
   return (
     <>
       {
         item ? 
-        <div id="default-carousel" className="h-56 md:h-96" data-carousel="slide">
+        <div id="default-carousel" className="w-full md:h-96" data-carousel="slide">
           {
             loading ? 
             <SpinnerLoading />
             :
-              <Carousel className='w-full h-full' slide={false}  >
+              <Carousel slideInterval={5000}  >
                 {
                   item.map((item, index) => 
                     <img
@@ -27,7 +28,7 @@ export default function DefaultCarousel({item, loading}) {
           }
         </div>
         :
-        <div id="default-carousel" class="relative h-56 md:h-96" data-carousel="slide">
+        <div id="default-carousel" class="relative w-full md:h-96" data-carousel="slide">
           <Carousel slide={false}  >
             <div className=''>
               <img
