@@ -120,7 +120,6 @@ export default function CreateProduk() {
     }
 
     const handleDeletePicture = (index) => {
-        console.log("masuk bos", index)
         const uploaded = [...gambar];
         const preview = [...images];
 
