@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from "react"
 import aksesMenu from "@/app/api/aksesMenu"
-import {edit, getSelectedUser} from "@/app/api/user"
+import {editUser, getSelectedUser} from "@/app/api/user"
 import { FieldText } from "@/components/fieldText"
 import {ButtonPrimary} from "@/components/buttonPrimary"
 import {Select2RoleUser} from "@/components/select2RoleUser"
@@ -91,7 +91,7 @@ export default function EditUser({params}) {
                 setValidUsername("username tidak boleh memakai simbol");
                 setLoadingButton(false)
                 setIsError(true)
-            } else if(password) {
+            } else if(isShowPassword) {
                 if(!validator.isLength(password,{min: 8})){
                     setValidPassword("Password harus minimal 8 karakter huruf");
                     setLoadingButton(false)
@@ -113,8 +113,8 @@ export default function EditUser({params}) {
                     "password" : password
                 }
 
-                const editUser = await edit(payload)
-                if(editUser.status) {
+                const editData = await editUser(payload)
+                if(editData.status) {
                     MySwal.fire({
                         icon: "success",
                         title: "Berhasil mengubah user", 
@@ -129,8 +129,8 @@ export default function EditUser({params}) {
                     "id_role" : roleUser.value.id,
                 }
 
-                const editUser = await edit(payload)
-                if(editUser.status) {
+                const editData = await editUser(payload)
+                if(editData.status) {
                     MySwal.fire({
                         icon: "success",
                         title: "Berhasil mengubah user", 

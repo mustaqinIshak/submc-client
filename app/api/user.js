@@ -137,7 +137,7 @@ async function create(payload) {
     }
 }
 
-async function edit(payload) {
+async function editUser(payload) {
     try{
         const result = await instance({
             method: 'post',
@@ -212,6 +212,6 @@ export {
     search,
     page,
     create,
-    edit,
+    editUser,
     deleteUser,
 }
