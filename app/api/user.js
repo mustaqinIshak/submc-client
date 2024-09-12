@@ -13,7 +13,7 @@ async function getAllUser(payload) {
                 limit: payload.limit,
             }
         })
-        return result.data
+        return result.data.data
     }
     catch(error) {
      
