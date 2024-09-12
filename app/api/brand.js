@@ -176,6 +176,34 @@ async function edit(payload) {
     }
 }
 
+async function getCountBrand() {
+    try {
+        const result = await instance({
+            method: 'post',
+            url:`/getCountBrand`,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Authorization" : `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        if(result.data.status) {
+            return result.data.data
+        }
+    } catch (error) {
+        const message = []
+        if(error.response.id.name) {
+            error.response.id.name.map((item) => {
+                message.push(item)
+            })
+        }
+        if(error.response.data.message) {
+            message.push(error.response.data.message)
+        }
+        const payload = message.join('')
+        throw payload
+    }
+} 
+
 export {
     getIndex,
     getAll,
@@ -183,4 +211,5 @@ export {
     page,
     create,
     edit,
+    getCountBrand,
 }
