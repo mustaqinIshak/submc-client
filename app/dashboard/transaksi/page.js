@@ -6,6 +6,7 @@ import SelectMetodePembayaran from '../../../components/select2MetodePembayaran'
 import TitlePage from '@/components/titlePage';
 import handleChangeRupiah from '@/helpers/handleChangRupiah';
 import { ButtonPrimary } from '@/components/buttonPrimary';
+import { store } from '@/app/api/transaksi';
 
 const Transaksi = () => {
     const [products, setProducts] = useState([]);
@@ -63,20 +64,29 @@ const Transaksi = () => {
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // Proses transaksi dengan daftar produk
         setErrorMetode(false)
         setErrorProduk(false)
-        if(!jenisMetode) {
-            setErrorMetode(true)
-        }
-        if(!products.length) {
-            setErrorProduk(true)
-        } else {
-            const payload = {
-
+        try {
+            
+            if(!jenisMetode) {
+                setErrorMetode(true)
             }
+            if(!products.length) {
+                setErrorProduk(true)
+            } else {
+                const payload = {
+                    produks: products,
+                    total,
+                    idMetodePembayaran: jenisMetode
+                }
+    
+                const result = await store(payload)
+            }
+        } catch (error) {
+            
         }
         // Kirim produk transaksi ke backend...
     };
