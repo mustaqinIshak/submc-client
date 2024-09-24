@@ -16,7 +16,7 @@ const ProductSearch = ({ onProductSelect }) => {
             // Map hasil respon dari API menjadi format yang sesuai untuk react-select
             return response.map((product) => (
                 {
-                    value: {...product, quantity: 1, total: 0 , diskon_amount: 0},
+                    value: {...product, quantity: 1, total: 0 , diskon_amount: 0, note: ""},
                     label: `${product.barcode} - ${product.name}(${product.size})`,
             }));
         } catch (error) {

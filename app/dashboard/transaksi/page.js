@@ -7,9 +7,13 @@ import TitlePage from '@/components/titlePage';
 import handleChangeRupiah from '@/helpers/handleChangRupiah';
 import { ButtonPrimary } from '@/components/buttonPrimary';
 import { store } from '@/app/api/transaksi';
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const Transaksi = () => {
+    const MySwal = withReactContent(Swal)
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [total, setTotal] = useState(0);
     const [totalQuantity, setTotalQuantity] = useState(0);
     const [jenisMetode, setJenisMetode] = useState(null);
@@ -69,24 +73,45 @@ const Transaksi = () => {
         // Proses transaksi dengan daftar produk
         setErrorMetode(false)
         setErrorProduk(false)
+        setLoading(true)
+        if(!jenisMetode) {
+            setErrorMetode(true)
+            setLoading(false)
+            return
+        }
+        if(!products.length) {
+            setErrorProduk(true)
+            setLoading(false)
+            return
+        } 
+        else {
         try {
             
-            if(!jenisMetode) {
-                setErrorMetode(true)
-            }
-            if(!products.length) {
-                setErrorProduk(true)
-            } else {
                 const payload = {
-                    produks: products,
+                    produks: products.map(item => item.value),
                     total,
-                    idMetodePembayaran: jenisMetode
+                    idMetodePembayaran: jenisMetode.value
                 }
     
-                const result = await store(payload)
+                const create = await store(payload)
+                if(create.status) {
+                    MySwal.fire({
+                        icon: "success",
+                        title: "Transaksi Berhasil", 
+                    })
+                    setProducts([])
+                    setJenisMetode(null)
+                    setTotal(0)
+                    setTotalQuantity(0)
+                }
+                setLoading(false)
+            } catch (error) {
+                setLoading(false)
+                MySwal.fire({
+                    icon: "error",
+                    title: error,
+                });
             }
-        } catch (error) {
-            
         }
         // Kirim produk transaksi ke backend...
     };
@@ -144,7 +169,7 @@ const Transaksi = () => {
                             <tbody>
                                 {
                                     products.map((product, index) => (
-                                        <tr className="bg-white dark:bg-gray-800">
+                                        <tr key={index} className="bg-white dark:bg-gray-800">
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {product.label}
                                         </th>
@@ -219,10 +244,10 @@ const Transaksi = () => {
                         <div className='w-64'>
                             <label htmlFor="metode pembayaran" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Metode Pembayaran: </label>
                             <SelectMetodePembayaran onMetodeSelect={handleJenisPembayaran} />
-                            <p className={`${errorMetode ? "mt-2 text-sm text-red-600 dark:text-red-500" : "hidden"}`}><span class="font-medium">Maaf!</span> anda harus memilih metode pembayaran terlebih dahulu</p>
+                            <p className={`${errorMetode ? "mt-2 text-sm text-red-600 dark:text-red-500" : "hidden"}`}><span className="font-medium">Maaf!</span> anda harus memilih metode pembayaran terlebih dahulu</p>
                         </div>
                         <div>
-                            <ButtonPrimary name='Checkout' type={"submit"}/>
+                            <ButtonPrimary isLoading={loading} name='Checkout' type={"submit"}/>
                         </div>
                     </div>
                 </form>
