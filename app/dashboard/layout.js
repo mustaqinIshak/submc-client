@@ -1,10 +1,6 @@
 "use client";
+import './globals.css'
 import Navbar from "@/components/navbar"
-
-export const metadata = {
-  title: 'Crasher',
-  description: 'create by crasher',
-}
 
 export default function RootLayout({children}) {
   return (
