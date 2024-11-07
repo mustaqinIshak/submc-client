@@ -14,11 +14,13 @@ const ProductSearch = ({ onProductSelect }) => {
             const response = await searchProdukTransaksi({keyword: inputValue});
             console.log(response)
             // Map hasil respon dari API menjadi format yang sesuai untuk react-select
-            return response.map((product) => (
+            return response.filter(product => product["jumlah_stok"] > 0).map((product) => (
                 {
                     value: {...product, quantity: 1, total: 0 , diskon_amount: 0, note: ""},
                     label: `${product.barcode} - ${product.name}(${product.size})`,
-            }));
+                }
+            )
+            );
         } catch (error) {
             console.error('Error loading products:', error);
             return [];

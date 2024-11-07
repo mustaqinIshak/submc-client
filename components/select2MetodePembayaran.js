@@ -27,7 +27,7 @@ const SelectMetodePembayaran = ({ onMetodeSelect }) => {
     };
 
     return (
-        <div>
+        <div className='w-full'>
              <AsyncSelect
             cacheOptions
             loadOptions={options}  // Fungsi untuk load data secara async

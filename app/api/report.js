@@ -1,42 +1,46 @@
 import instance from "./config";
 
-async function searchProdukTransaksi(payload) {
+async function searchReport(payload) {
     try{
         const result = await instance({
             method: 'post',
-            url:'/transaction/search-products',
+            url:'/report-transaksi',
             headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Authorization" : `Bearer ${localStorage.getItem('token')}`
             },
             data: payload
         })
-        return result.data
+        if(result.data.status) {
+            return result.data.data
+        }
     }
     catch(error) {
         throw error
     }
 }
 
-async function store(payload) {
-    try {
+async function page(payload) {
+    try{
         const result = await instance({
             method: 'post',
-            url:'/transaction/store',
+            url:`/report-transaksi?page=${payload.number}`,
             headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Authorization" : `Bearer ${localStorage.getItem('token')}`
             },
             data: payload
         })
-        console.log('ini di store', result)
-        return result.data
-    } catch (error) {
+        if(result.data.status) {
+            return result.data.data
+        }
+    }
+    catch(error) {
         throw error
     }
 }
 
 export {
-    searchProdukTransaksi,
-    store,
+    searchReport,
+    page,
 }
