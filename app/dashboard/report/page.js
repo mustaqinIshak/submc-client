@@ -7,21 +7,23 @@ import { searchReport, page } from '../../api/report.js';
 import TitlePage from '@/components/titlePage';
 import {ButtonPrimary} from "@/components/buttonPrimary"
 import {Select2Brand} from '../../../components/select2Brand'
-import SelectMetodePembayaran from '@/components/select2MetodePembayaran.js'
+import SelectMetodePembayaranReport from '@/components/selectMetodePembayaranReport.js'
 import {SelectRow} from "@/components/selectRow"; 
 import Pagination from "../../../components/pagination.js"
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import SpinnerLoading from '@/components/spinner'
 import { useRouter } from "next/navigation"
+import { writeFile, utils } from 'xlsx';
+import { saveAs } from 'file-saver';
 
 const Report = () => {
     const router = useRouter();
     const MySwal = withReactContent(Swal)
-    const [tanggalAwal, setTanggalAwal] = useState(null)
-    const [tanggalAkhir, setTanggalAkhir] = useState(null)
+    const [tanggalAwal, setTanggalAwal] = useState("")
+    const [tanggalAkhir, setTanggalAkhir] = useState("")
     const [brand, setBrand] = useState({value:{id: 0, name: "All"}, label:"All"});
-    const [jenisMetode, setJenisMetode] = useState(null);
+    const [jenisMetode, setJenisMetode] = useState({value:0, label:"All"});
     const [data, setData] = useState([])
     const [limit, setLimit] = useState(10)
     const [totalData, setTotalData] = useState(0)
@@ -32,8 +34,46 @@ const Report = () => {
     const [reload, setReload] = useState(false)
     
     const handleJenisPembayaran = (metode) => {
-        setJenisMetode({...metode})
+        setJenisMetode(metode)
     }
+
+    const exportToExcel = async () => {
+        // Contoh data untuk laporan
+        
+        try {
+            const payload = {
+                limit,
+                "tanggalAwal": tanggalAwal,
+                "tanggalAkhir": tanggalAkhir,
+                "idBrand": brand.value.id,
+                "idMetodePembayaran": jenisMetode.value,
+                "typeFile" : "excel"
+            }
+            const result = await searchReport(payload);
+            console.log("ini di report", result)
+            const data = result
+            
+              // Buat worksheet dari data
+              const worksheet = utils.json_to_sheet(data);
+          
+              // Buat workbook dan tambahkan worksheet ke dalamnya
+              const workbook = utils.book_new();
+              utils.book_append_sheet(workbook, worksheet, brand.label + ' ' + jenisMetode.label);
+          
+              // Simpan workbook sebagai file .xlsx
+              const excelBuffer = writeFile(workbook, `${brand.label}-${jenisMetode.label}.xlsx`, { type: 'binary' });
+          
+              // Menggunakan file-saver untuk menyimpan file di browser
+            //   saveAs(new Blob([excelBuffer], { type: 'application/octet-stream' }), 'Laporan.xlsx');
+        } catch (error) {
+            setLoading(false)
+            MySwal.fire({
+                icon: "error",
+                title: "Gagal mengambil data report excel",
+            });
+        }
+        
+      };
 
     const getReports = async (event) => {
         event.preventDefault()
@@ -163,7 +203,7 @@ const Report = () => {
                     <div className='relative max-w-sm col-span-2' >
                         <label htmlFor="tanggal-expiration-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dari:</label>
                         <input 
-                            id="tanggal" 
+                            // id="tanggal" 
                             type="date" 
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12/23"      
                             value={tanggalAwal}
@@ -175,9 +215,9 @@ const Report = () => {
                         <span className=''>s/d</span>
                     </div>
                     <div className='relative max-w-sm col-span-2' >
-                        <label htmlFor="tanggal-expiration-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sampai:</label>
+                        <label htmlFor="tanggal-expiration-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sampai:</label>
                         <input 
-                            id="tanggal" 
+                            // id="tanggal" 
                             type="date" 
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12/23"      
                             value={tanggalAkhir}
@@ -191,12 +231,12 @@ const Report = () => {
                 </div>
                 <div className='w-64'>
                     <label htmlFor="metode pembayaran" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Metode Pembayaran: </label>
-                    <SelectMetodePembayaran onMetodeSelect={handleJenisPembayaran} />
+                    <SelectMetodePembayaranReport onMetodeSelect={handleJenisPembayaran} />
                     {/* <p className={`${errorMetode ? "mt-2 text-sm text-red-600 dark:text-red-500" : "hidden"}`}><span className="font-medium">Maaf!</span> anda harus memilih metode pembayaran terlebih dahulu</p> */}
                 </div>
                 <div className="">
                     <label htmlFor="metode pembayaran" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Limit: </label>
-                    <SelectRow value={limit} setValue={setLimit} id={"limit"} />
+                    <SelectRow value={limit} setValue={setLimit}  />
                 </div>
                 <ButtonPrimary name="cari" width="w-64 self-center" type={"submit"}/>
                 
@@ -207,7 +247,28 @@ const Report = () => {
                 </div> 
                 :
                 <div>
-                    
+                    <button className="
+                        focus:outline-none 
+                        text-white 
+                        bg-green-700 
+                        hover:bg-green-800 
+                        focus:ring-4 
+                        focus:ring-green-300 
+                        font-medium 
+                        rounded-lg 
+                        text-sm 
+                        px-5 
+                        py-2.5 
+                        me-2 
+                        mb-5 
+                        dark:bg-green-600 
+                        dark:hover:bg-green-700 
+                        dark:focus:ring-green-800
+                        
+                        " 
+                        onClick={exportToExcel}>
+                        Export ke Excel
+                    </button>
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>

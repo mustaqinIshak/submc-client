@@ -3,6 +3,7 @@ import TitlePage from "@/components/titlePage"
 import { useState, useEffect } from "react";
 import { getCountProduk } from "../api/produk";
 import {getCountBrand} from "../api/brand";
+import ChartDashboard from "@/components/chartDashboard.js"
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import CountUp from 'react-countup';
@@ -66,8 +67,8 @@ export default function Dashboard() {
                         <dd className="text-gray-500 dark:text-gray-400">Transaksi By WA</dd>
                     </div>
                 </dl>
-                
             </div>
+            <ChartDashboard />
         </>
     )
 }
