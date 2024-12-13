@@ -1,9 +1,12 @@
-export const SelectRow = ({value, setValue, id, width}) =>  {
+export const SelectRow = ({value, setValue, id, width, name}) =>  {
     const jumlahRow = [
         10, 25, 50, 100
     ]
     return(
         <div className="">
+            <label className=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                {name}
+            </label>
         <select id={id} 
                 className={`
                         bg-gray-50 

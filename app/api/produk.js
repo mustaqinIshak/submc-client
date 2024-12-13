@@ -9,10 +9,7 @@ async function getAllProduk(payload) {
                 "Access-Control-Allow-Origin": "*",
                 "Authorization" : `Bearer ${localStorage.getItem('token')}`
             },
-            data: {
-                limit: payload.limit,
-                search: payload.search
-            }
+            data: payload
         })
   
         return result.data.data
@@ -70,8 +67,7 @@ async function search(payload) {
                 "Authorization" : `Bearer ${localStorage.getItem('token')}`
             },
             data: {
-                limit: payload.limit,
-                search: payload.search,
+                payload
                 // idCategori: payload.idCategori,
                 // idSubCategori: payload.idSubCategori,
             }
@@ -95,10 +91,7 @@ async function page(payload) {
                 "Access-Control-Allow-Origin": "*",
                 "Authorization" : `Bearer ${localStorage.getItem('token')}`
             },
-            data: {
-                limit: payload.limit,
-                search: payload.search
-            }
+            data: payload
         })
         if(result.data.status) {
             return result.data.data
@@ -281,6 +274,7 @@ async function getCountProduk() {
                 "Access-Control-Allow-Origin": "*",
                 "Authorization" : `Bearer ${localStorage.getItem('token')}`
             }
+            
         })
         if(result.data.status) {
             return result.data.data
@@ -298,8 +292,38 @@ async function getCountProduk() {
         const payload = message.join('')
         throw payload
     }
-} 
+}
 
+async function getDownloadStokOfName(payload) {
+    try {
+        const result = await instance({
+            method: 'post',
+            url:`/stok-of-name-Produk/download`,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Authorization" : `Bearer ${localStorage.getItem('token')}`
+            },
+            data:payload
+        })
+        if(result.data.status) {
+            return result.data.data
+        }
+    } catch (error) {
+        const message = []
+        if(error.response.id.name) {
+            error.response.id.name.map((item) => {
+                message.push(item)
+            })
+        }
+        if(error.response.data.message) {
+            message.push(error.response.data.message)
+        }
+        const payload = message.join('')
+        throw payload
+    }
+}
+
+// 
 export {
     getAllProduk,
     getSelectedProduk,
@@ -309,4 +333,5 @@ export {
     editProduk,
     deleteProduk,
     getCountProduk,
+    getDownloadStokOfName,
 }

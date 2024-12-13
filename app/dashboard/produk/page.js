@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import TitlePage from "@/components/titlePage";
-
 import aksesMenu from "../../api/aksesMenu";
 // import TableUser from "@/components/tableUser"
 import { ButtonPrimary } from "@/components/buttonPrimary";
@@ -10,11 +9,13 @@ import SpinnerLoading from "@/components/spinner";
 import { useRouter } from "next/navigation"
 import TableProduk from "@/components/tableProduk"
 
+
 export default function Produk() {
 
     const router = useRouter();
     const [aksesMenuData, setAksesMenuData] = useState({});
     const [loadingPage, setLoadingPage] = useState(false);
+
 
     const getAksesMenu = async () => {
         try {
