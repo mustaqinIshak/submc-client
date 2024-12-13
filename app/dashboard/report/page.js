@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import handleChangeRupiah from "../../../helpers/handleChangRupiah.js"
 import { FaRegTrashCan, FaRegPenToSquare } from "react-icons/fa6";
-import { searchReport, page } from '../../api/report.js';
+import { searchReport, page, downloadReport } from '../../api/report.js'; 
 import TitlePage from '@/components/titlePage';
 import {ButtonPrimary} from "@/components/buttonPrimary"
 import {Select2Brand} from '../../../components/select2Brand'
@@ -49,8 +49,8 @@ const Report = () => {
                 "idMetodePembayaran": jenisMetode.value,
                 "typeFile" : "excel"
             }
-            const result = await searchReport(payload);
-            console.log("ini di report", result)
+            const result = await downloadReport(payload);
+            // console.log("ini di report", result)
             const data = result
             
               // Buat worksheet dari data
@@ -58,10 +58,10 @@ const Report = () => {
           
               // Buat workbook dan tambahkan worksheet ke dalamnya
               const workbook = utils.book_new();
-              utils.book_append_sheet(workbook, worksheet, brand.label + ' ' + jenisMetode.label);
+              utils.book_append_sheet(workbook, worksheet, brand.label + ' ' + jenisMetode.label, `${tanggalAwal} - ${tanggalAkhir}`);
           
               // Simpan workbook sebagai file .xlsx
-              const excelBuffer = writeFile(workbook, `${brand.label}-${jenisMetode.label}.xlsx`, { type: 'binary' });
+              const excelBuffer = writeFile(workbook, `${brand.label}-${jenisMetode.label} ${tanggalAwal} - ${tanggalAkhir}.xlsx`, { type: 'binary' });
           
               // Menggunakan file-saver untuk menyimpan file di browser
             //   saveAs(new Blob([excelBuffer], { type: 'application/octet-stream' }), 'Laporan.xlsx');

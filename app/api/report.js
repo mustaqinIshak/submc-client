@@ -40,7 +40,28 @@ async function page(payload) {
     }
 }
 
+async function downloadReport(payload) {
+    try{
+        const result = await instance({
+            method: 'post',
+            url:`/report-transaksi/download-excel`,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Authorization" : `Bearer ${localStorage.getItem('token')}`
+            },
+            data: payload
+        })
+        if(result.data.status) {
+            return result.data.data
+        }
+    }
+    catch(error) {
+        throw error
+    }
+}
+// 
 export {
     searchReport,
     page,
+    downloadReport,
 }
