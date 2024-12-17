@@ -197,7 +197,8 @@ export default function TableProduk({aksesEdit = 0}) {
             const payload = {
                 limit,
                 search: searchData,
-                number: id
+                number: id,
+                idBrand: brand.value.id,
             }
             const result = await page(payload)
             if(result.data.length) {

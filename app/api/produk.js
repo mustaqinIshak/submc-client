@@ -66,11 +66,9 @@ async function search(payload) {
                 "Access-Control-Allow-Origin": "*",
                 "Authorization" : `Bearer ${localStorage.getItem('token')}`
             },
-            data: {
-                payload
+            data: payload
                 // idCategori: payload.idCategori,
                 // idSubCategori: payload.idSubCategori,
-            }
         })
         if(result.data.status) {
             return result.data.data
