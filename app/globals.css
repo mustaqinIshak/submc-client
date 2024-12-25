@@ -17,3 +17,22 @@
   }
 }
 
+/* CSS khusus untuk pencetakan */
+@media print {
+  body * {
+      visibility: hidden; /* Sembunyikan semua elemen */
+  }
+
+  #barcode-container, #barcode-container * {
+      visibility: visible; /* Hanya tampilkan elemen barcode */
+  }
+
+  #barcode-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+  }
+}
+
+
