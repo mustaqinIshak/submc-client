@@ -477,7 +477,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
                                     <ol className="flex flex-col md:flex-row">
                                         {[...images].map((f, i) => (
                                             <li  key={i} className="block p-1 w-1/ h-full sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8">
-                                                <img onClick={() => handleDeletePicture(i)} alt="upload preview" src={f.path} className="img-preview w-full h-full sticky object-cover rounded-md bg-fixed" />
+                                                <img onClick={() => handleDeletePicture(i)} alt="upload preview" src={f.path} className="img-preview w-full h-full sticky object-cover rounded-md bg-fixed cursor-pointer" />
                                             </li>
                                         ))}
                                     </ol>
