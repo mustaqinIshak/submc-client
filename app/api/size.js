@@ -38,6 +38,7 @@ async function createSize(payload) {
             },
             data: {
                 idProduk: payload.idProduk,
+                nama_artikel: payload.nama_artikel,
                 name: payload.name,
                 jumlah: payload.jumlah
             }
