@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 export default function SizeFormEdit({
     idProduk,
+    namaArtikel,
     sizes,
     isError,
     keterangan,
@@ -46,6 +47,7 @@ export default function SizeFormEdit({
             } else {
                 const obj = {
                     idProduk: idProduk,
+                    nama_artikel: namaArtikel,
                     name: nameSize,
                     jumlah: jumlahSize,
                 }

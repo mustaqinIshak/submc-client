@@ -462,6 +462,7 @@ export default function FormEditProduk({getProduk, aksesMenuData, idProduk}) {
                             <div className="w-full">
                                 <SizeFormEdit 
                                     idProduk={idProduk}
+                                    namaArtikel={name}
                                     sizes={sizes}
                                     isError={isErrorSize}
                                     keterangan={validSize}
