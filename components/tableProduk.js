@@ -264,7 +264,7 @@ export default function TableProduk({aksesEdit = 0}) {
                                     dark:focus:ring-green-800
                                     " 
                                 onClick={exportToExcel}>
-                                    Download Stok Of Name
+                                    Download Stok Opname
                                 </button>
                     </div>
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
