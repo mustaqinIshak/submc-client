@@ -14,6 +14,7 @@ export default function Dashboard() {
     const [jumlahBrand, setJumlahBrand] = useState(0);
     const [jumlahTransaksiShopee, setJumlahTransaksiShopee] = useState(0);
     const [jumlahTransaksiWa, setJumlahTransaksiWa] = useState(0);
+    const [jumlahTransaksiHomeStore, ssetJumlahTransaksiToko] = useState(0);
     const MySwal = withReactContent(Swal)
     const countAll = async () => {
         try {
@@ -65,6 +66,12 @@ export default function Dashboard() {
                             <CountUp start={0} end={jumlahTransaksiWa} duration={2.75} />
                         </dt>
                         <dd className="text-gray-500 dark:text-gray-400">Transaksi By WA</dd>
+                    </div>
+                    <div className="flex flex-col items-center justify-center">
+                        <dt className="mb-2 text-3xl font-extrabold">
+                            <CountUp start={0} end={jumlahTransaksiHomeStore} duration={2.75} />
+                        </dt>
+                        <dd className="text-gray-500 dark:text-gray-400">Transaksi By Home Store</dd>
                     </div>
                 </dl>
             </div>
